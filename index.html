@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JP Soluciones de Construcción y Eléctricas SV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,900;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #E8A020;
+      --gold-dk: #3a2e00;
+      --bg:      #080808;
+      --bg-alt:  #0e0e0e;
+      --card:    #111111;
+      --text:    #F5F0E8;
+      --muted:   #888888;
+      --bc:      'Barlow Condensed', sans-serif;
+      --b:       'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--b);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .section-label span {
+      font-family: var(--bc);
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    h2.display {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: clamp(40px, 4vw, 58px);
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        #181818 0, #181818 8px,
+        #222 8px, #222 16px
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .photo-placeholder span {
+      font-family: monospace;
+      font-size: 11px;
+      color: #555;
+      letter-spacing: 1px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #000;
+      padding: 0 80px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .nav-brand-text .name {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 3px;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .nav-brand-text .sub {
+      font-family: var(--bc);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--bc);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-nav {
+      background: var(--gold);
+      color: #000;
+      padding: 9px 22px;
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 96px 80px 80px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    #hero .bg-panel {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 50%;
+      background: #0d0d0d;
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    #hero .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+    }
+    #hero h1 {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: clamp(64px, 6.5vw, 94px);
+      line-height: 0.92;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      letter-spacing: -1px;
+    }
+    #hero h1 span { color: var(--gold); }
+    #hero p {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+    #hero .hero-cta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    #hero .hero-cta .phone {
+      font-family: var(--bc);
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    #hero .hero-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+    #hero .hero-img .photo-placeholder { height: 360px; }
+    #hero .hero-img .corner {
+      position: absolute;
+      bottom: -10px; right: -10px;
+      width: 60px; height: 60px;
+      border: 2px solid var(--gold);
+      pointer-events: none;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      background: var(--gold);
+      color: #000;
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .85; }
+
+    .btn-primary-lg {
+      padding: 18px 44px;
+      font-size: 17px;
+    }
+
+    /* ── STATS ── */
+    .stats-bar {
+      background: var(--gold);
+      padding: 22px 80px;
+      display: flex;
+      justify-content: space-around;
+    }
+    .stat { text-align: center; }
+    .stat .val {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: 40px;
+      color: #000;
+      line-height: 1;
+    }
+    .stat .lbl {
+      font-family: var(--bc);
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--gold-dk);
+      text-transform: uppercase;
+    }
+
+    /* ── SERVICES ── */
+    #servicios {
+      padding: 80px;
+      background: var(--bg);
+    }
+    .services-group-label {
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin: 48px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .services-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #222;
+    }
+    .siget-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232,160,32,.1);
+      border: 1px solid rgba(232,160,32,.3);
+      padding: 5px 12px;
+      margin-bottom: 40px;
+    }
+    .siget-badge span {
+      font-family: var(--bc);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--card);
+      padding: 36px 28px;
+      border-top: 3px solid var(--gold);
+    }
+    .service-card .icon {
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .service-card h3 {
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 21px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── PROJECTS ── */
+    #proyectos {
+      padding: 80px;
+      background: var(--bg-alt);
+    }
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+    .link-gold {
+      font-family: var(--bc);
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: opacity .2s;
+    }
+    .link-gold:hover { opacity: .7; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card .photo-placeholder { height: 230px; }
+    .project-card .overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.85));
+      padding: 28px 16px 14px;
+    }
+    .project-card .overlay span {
+      font-family: var(--bc);
+      font-size: 13px;
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── ABOUT ── */
+    #nosotros {
+      padding: 80px;
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    #nosotros .about-copy h2 { font-size: clamp(40px, 3.6vw, 52px); }
+    #nosotros p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
+      margin-top: 24px;
+      margin-bottom: 18px;
+    }
+    .quote-block {
+      border-left: 3px solid var(--gold);
+      padding-left: 20px;
+      margin-top: 32px;
+    }
+    .quote-block p {
+      font-family: var(--bc);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--text);
+      line-height: 1.4;
+      margin: 0;
+    }
+    #nosotros .about-img .photo-placeholder { height: 380px; }
+
+    /* ── WHY US ── */
+    #por-que {
+      padding: 80px;
+      background: var(--bg-alt);
+    }
+    #por-que .why-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    #por-que .why-header .section-label {
+      justify-content: center;
+    }
+    #por-que .why-header .section-label::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .reason-card {
+      border-top: 1px solid #222;
+      padding-top: 24px;
+    }
+    .reason-card .num {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: 52px;
+      color: var(--gold);
+      opacity: .25;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .reason-card h3 {
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .reason-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── CONTACT ── */
+    #contacto {
+      padding: 90px 80px;
+      background: var(--bg);
+      text-align: center;
+    }
+    #contacto .contact-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    #contacto .contact-label::before,
+    #contacto .contact-label::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--gold);
+    }
+    #contacto .contact-label span {
+      font-family: var(--bc);
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    #contacto h2 {
+      font-family: var(--bc);
+      font-weight: 900;
+      font-size: clamp(48px, 5vw, 72px);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    #contacto > p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 44px;
+      line-height: 1.65;
+    }
+    #contacto .contact-phone {
+      margin-top: 24px;
+      font-family: var(--bc);
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #000;
+      padding: 24px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1a1a1a;
+    }
+    footer .brand {
+      font-family: var(--bc);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+    footer .copy {
+      font-family: var(--bc);
+      font-size: 12px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+
+    /* ── Hamburger ── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: transform .25s, opacity .25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── WhatsApp float button (mobile) ── */
+    .wa-float {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      background: var(--gold);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(232,160,32,.4);
+      text-decoration: none;
+      transition: transform .2s;
+    }
+    .wa-float:hover { transform: scale(1.08); }
+
+    /* ══ TABLET  768–1023px ══════════════════════════════════════════ */
+    @media (max-width: 1023px) {
+      nav { padding: 0 36px; }
+
+      .nav-links a:not(.btn-nav) { display: none; }
+
+      #hero {
+        padding: 64px 36px 56px;
+        gap: 40px;
+      }
+
+      .stats-bar { padding: 20px 36px; }
+      .stat .val  { font-size: 32px; }
+
+      #servicios  { padding: 64px 36px; }
+      #proyectos  { padding: 64px 36px; }
+      #nosotros   { padding: 64px 36px; gap: 48px; }
+      #por-que    { padding: 64px 36px; }
+      #contacto   { padding: 64px 36px; }
+      footer      { padding: 20px 36px; }
+
+      .services-grid  { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+      .services-group-label { margin-top: 32px; }
+      .projects-grid  { grid-template-columns: repeat(2, 1fr); }
+      .reasons-grid   { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    }
+
+    /* ══ MOBILE  < 768px ════════════════════════════════════════════ */
+    @media (max-width: 767px) {
+      nav {
+        padding: 0 20px;
+        height: 64px;
+        position: relative;
+      }
+
+      .nav-toggle { display: flex; }
+
+      /* Mobile drawer */
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0; right: 0;
+        background: #000;
+        flex-direction: column;
+        gap: 0;
+        padding: 16px 0 20px;
+        border-bottom: 1px solid #1e1e1e;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a:not(.btn-nav) {
+        display: block;
+        padding: 14px 24px;
+        font-size: 15px;
+        letter-spacing: 2px;
+        color: var(--muted);
+      }
+      .nav-links .btn-nav {
+        margin: 12px 24px 0;
+        justify-content: center;
+      }
+
+      /* Hero stacks */
+      #hero {
+        padding: 48px 20px 44px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        min-height: unset;
+      }
+      #hero .bg-panel { display: none; }
+      #hero h1 { font-size: clamp(52px, 13vw, 72px); }
+      #hero p  { font-size: 15px; max-width: 100%; }
+      #hero .hero-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+      #hero .hero-img img { height: 240px; }
+      #hero .hero-img .corner { display: none; }
+
+      /* Stats */
+      .stats-bar {
+        padding: 16px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .stat .val { font-size: 30px; }
+
+      /* Sections */
+      #servicios { padding: 48px 20px; }
+      #proyectos { padding: 48px 20px; }
+      #nosotros  { padding: 48px 20px; grid-template-columns: 1fr; gap: 32px; }
+      #por-que   { padding: 48px 20px; }
+      #contacto  { padding: 56px 20px; }
+      footer     { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+
+      h2.display { font-size: clamp(32px, 9vw, 44px); }
+
+      .services-grid  { grid-template-columns: 1fr; }
+      .siget-badge { margin-bottom: 28px; }
+      .projects-grid  { grid-template-columns: 1fr; }
+      .reasons-grid   { grid-template-columns: 1fr; gap: 20px; }
+
+      .projects-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+      /* Nosotros: image comes first on mobile */
+      #nosotros .about-img  { order: -1; }
+      #nosotros .about-img img { height: 240px; }
+
+      /* Contact */
+      #contacto h2    { font-size: clamp(40px, 11vw, 56px); }
+      .btn-primary-lg { padding: 16px 28px; font-size: 15px; }
+
+      /* WhatsApp float */
+      .wa-float { display: flex; }
+
+      /* Quote */
+      .quote-block p { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ NAV ═══════════ -->
+  <nav>
+    <a href="#hero" class="nav-brand">
+      <img src="uploads/pasted-1781136260872-0.png" alt="JP Soluciones Logo" style="width:48px;height:48px;object-fit:cover;border-radius:4px;">
+      <div class="nav-brand-text">
+        <div class="name">JP SOLUCIONES</div>
+        <div class="sub">Construcción &amp; Eléctricas · SV</div>
+      </div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="#servicios" class="nav-close">Servicios</a>
+      <a href="#proyectos" class="nav-close">Proyectos</a>
+      <a href="#nosotros" class="nav-close">Nosotros</a>
+      <a href="#contacto" class="nav-close">Contacto</a>
+      <a href="https://wa.me/50371061537" class="btn-nav" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#000">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.85L.057 23.057l5.351-1.404A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.786 9.786 0 01-5.122-1.443l-.367-.218-3.178.834.849-3.098-.24-.386A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+        </svg>
+        WHATSAPP
+      </a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero">
+    <div class="bg-panel"></div>
+    <div class="hero-copy">
+      <div class="section-label"><span>El Salvador · Construcción &amp; Electricidad</span></div>
+      <h1>Construimos<br><span>el futuro.</span><br>Conectamos<br>el presente.</h1>
+      <p>Ingenieros y Técnicos Electricistas autorizados por la <strong style="color:var(--gold)">SIGET</strong>. Soluciones integrales de construcción e ingeniería eléctrica para tu hogar o empresa en todo El Salvador.</p>
+      <div class="hero-cta">
+        <a href="https://wa.me/50371061537" class="btn-primary" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#000">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.85L.057 23.057l5.351-1.404A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.786 9.786 0 01-5.122-1.443l-.367-.218-3.178.834.849-3.098-.24-.386A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+          </svg>
+          Cotiza Gratis
+        </a>
+
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="uploads/pasted-1781136220560-0.png" alt="Instalación de generador con grúa" style="width:100%;height:360px;object-fit:cover;display:block;object-position:center 30%;">
+
+    </div>
+  </section>
+
+  <!-- ═══════════ STATS ═══════════ -->
+  <div class="stats-bar">
+    <div class="stat"><div class="val">50+</div><div class="lbl">Proyectos</div></div>
+    <div class="stat"><div class="val">5+</div><div class="lbl">Años</div></div>
+    <div class="stat"><div class="val">100%</div><div class="lbl">Satisfacción</div></div>
+    <div class="stat"><div class="val">24h</div><div class="lbl">Respuesta</div></div>
+  </div>
+
+  <!-- ═══════════ SERVICIOS ═══════════ -->
+  <section id="servicios">
+    <div class="section-label"><span>Lo que hacemos</span></div>
+    <h2 class="display">Nuestros Servicios</h2>
+
+    <div class="siget-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E8A020" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Ingenieros y Técnicos autorizados por la SIGET</span>
+    </div>
+
+    <div class="services-group-label">Servicios Eléctricos</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Instalaciones Eléctricas</h3>
+        <p>Instalaciones y servicios eléctricos residenciales, comerciales e industriales con los más altos estándares de seguridad.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+        <h3>Paneles Solares</h3>
+        <p>Instalación de sistemas fotovoltaicos. Ahorra desde el primer día con energía limpia, renovable y amigable con el medio ambiente.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+        <h3>Alta, Media y Baja Tensión</h3>
+        <p>Trabajos especializados en diferentes niveles de tensión según el tipo de instalación o sistema eléctrico requerido.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="12" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="14"/></svg></div>
+        <h3>Mantenimiento de UPS</h3>
+        <p>Mantenimiento correctivo y preventivo de UPS. Protege tu energía y evita fallos, pérdidas de datos o interrupciones.</p>
+      </div>
+    </div>
+
+    <div class="services-group-label">Plantas Eléctricas &amp; Construcción</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2v6H7zM15 8h2v6h-2z"/></svg></div>
+        <h3>Instalación de Generadores</h3>
+        <p>Instalación profesional y puesta en marcha de plantas eléctricas para hogares, comercios e industria. ¡Nunca te quedes sin energía!</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg></div>
+        <h3>Suministro de Plantas</h3>
+        <p>Suministro e instalación de plantas eléctricas de las mejores marcas. Atención residencial, comercial e industrial.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M10 20v-6h4v6"/></svg></div>
+        <h3>Construcción &amp; Remodelaciones</h3>
+        <p>Obra gris, remodelaciones, trabajo de tabla roca y acabados integrales. Transformamos tu espacio desde cero.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Fontanería &amp; Techos</h3>
+        <p>Instalaciones de fontanería y reparación de techos. Soluciones completas para mantener tu propiedad en perfectas condiciones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PROYECTOS ═══════════ -->
+  <section id="proyectos">
+    <div class="projects-header">
+      <div>
+        <div class="section-label"><span>Nuestro trabajo</span></div>
+        <h2 class="display">Proyectos</h2>
+      </div>
+      <a href="#contacto" class="link-gold">Ver todos →</a>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136246691-0.png" alt="Instalación de paneles solares" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center top;">
+        <div class="overlay"><span>Instalación de Paneles Solares</span></div>
+      </div>
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136241525-0.png" alt="Mantenimiento de UPS" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center 20%;">
+        <div class="overlay"><span>Mantenimiento de UPS</span></div>
+      </div>
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136220560-0.png" alt="Suministro e instalación de generador" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center 40%;">
+        <div class="overlay"><span>Suministro e Instalación de Generador</span></div>
+      </div>
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136237023-0.png" alt="Trabajo en transformador eléctrico" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center 30%;">
+        <div class="overlay"><span>Instalación Eléctrica Industrial</span></div>
+      </div>
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136256116-0.png" alt="Mantenimiento de planta eléctrica" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center 20%;">
+        <div class="overlay"><span>Mantenimiento de Planta Eléctrica</span></div>
+      </div>
+
+      <div class="project-card">
+        <img src="uploads/pasted-1781136227366-0.png" alt="Caseta y planta generadora" style="width:100%;height:230px;object-fit:cover;display:block;object-position:center 30%;">
+        <div class="overlay"><span>Caseta &amp; Planta Generadora</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ NOSOTROS ═══════════ -->
+  <section id="nosotros">
+    <div class="about-copy">
+      <div class="section-label"><span>Quiénes somos</span></div>
+      <h2 class="display" style="font-size: clamp(36px,3.6vw,52px);">Pasión por la<br>Ingeniería</h2>
+      <p>Somos Ingenieros y Técnicos Electricistas <strong style="color:var(--gold)">autorizados por la SIGET</strong>, especializados en soluciones integrales de construcción e ingeniería eléctrica. Cada proyecto lo abordamos con el compromiso de superar las expectativas del cliente.</p>
+      <p>Brindamos atención residencial, comercial e industrial con cobertura en todo El Salvador. Servicio rápido, confiable y con garantía en cada trabajo que realizamos.</p>
+      <div class="quote-block">
+        <p>"No somos pioneros, así que<br>decidimos ser los mejores."</p>
+      </div>
+    </div>
+    <div class="about-img">
+      <img src="uploads/pasted-1781136251508-0.png" alt="Técnico JP Soluciones en mantenimiento" style="width:100%;height:380px;object-fit:cover;display:block;object-position:center 20%;">
+    </div>
+  </section>
+
+  <!-- ═══════════ POR QUÉ ELEGIRNOS ═══════════ -->
+  <section id="por-que">
+    <div class="why-header">
+      <div class="section-label"><span>Por qué elegirnos</span></div>
+      <h2 class="display">Nuestra Diferencia</h2>
+    </div>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="num">01</div>
+        <h3>Experiencia Comprobada</h3>
+        <p>Años de trabajo en campo con resultados que hablan por sí solos.</p>
+      </div>
+      <div class="reason-card">
+        <div class="num">02</div>
+        <h3>Equipo Certificado</h3>
+        <p>Técnicos capacitados con experiencia en proyectos de alta exigencia.</p>
+      </div>
+      <div class="reason-card">
+        <div class="num">03</div>
+        <h3>Cotización Gratuita</h3>
+        <p>Te asesoramos y cotizamos tu proyecto sin ningún costo.</p>
+      </div>
+      <div class="reason-card">
+        <div class="num">04</div>
+        <h3>Cumplimiento en Plazos</h3>
+        <p>Entregamos a tiempo porque valoramos tu inversión y confianza.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTACTO ═══════════ -->
+  <section id="contacto">
+    <div class="contact-label"><span>Hablemos</span></div>
+    <h2>¿Tienes un<br>proyecto?</h2>
+    <p>Cuéntanos lo que necesitas. Realizamos visitas y presupuestos sin ningún costo.</p>
+    <a href="https://wa.me/50371061537" class="btn-primary btn-primary-lg" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#000">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.85L.057 23.057l5.351-1.404A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.786 9.786 0 01-5.122-1.443l-.367-.218-3.178.834.849-3.098-.24-.386A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+      </svg>
+      Escríbenos al WhatsApp
+    </a>
+    <div class="contact-phone">7106-1537 · El Salvador</div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    <span class="brand">JP SOLUCIONES DE CONSTRUCCIÓN Y ELÉCTRICAS SV</span>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <a href="https://www.instagram.com/jpsolucionesdecontruccionsv?igsh=cmJrczF3ODR5MXg1" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;color:#888;transition:color .2s;" onmouseover="this.style.color='#E8A020'" onmouseout="this.style.color='#888'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/share/1BNxKg1A7b/?mibextid=wwXIfr" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:7px;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;color:#888;transition:color .2s;" onmouseover="this.style.color='#E8A020'" onmouseout="this.style.color='#888'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook
+      </a>
+      <span class="copy">© 2026</span>
+    </div>
+  </footer>
+
+
+  <!-- WhatsApp float (mobile) -->
+  <a href="https://wa.me/50371061537" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#000"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.85L.057 23.057l5.351-1.404A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.786 9.786 0 01-5.122-1.443l-.367-.218-3.178.834.849-3.098-.24-.386A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+  </a>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-close').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        links.classList.remove('open');
+      });
+    });
+  </script>
+
+  <template id="__bundler_thumbnail" data-bg-color="#080808">
+    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <!-- Skyline -->
+      <polyline points="10,55 10,42 20,42 20,34 30,34 30,42 40,42 40,24 50,24 60,24 60,42 70,42 70,30 80,30 80,42 100,42 100,55"
+        stroke="#E8A020" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+      <line x1="10" y1="55" x2="100" y2="55" stroke="#E8A020" stroke-width="1.8"/>
+      <!-- Plug left -->
+      <line x1="10" y1="62" x2="24" y2="62" stroke="#E8A020" stroke-width="1.6"/>
+      <line x1="14" y1="58" x2="14" y2="66" stroke="#E8A020" stroke-width="2"/>
+      <line x1="19" y1="58" x2="19" y2="66" stroke="#E8A020" stroke-width="2"/>
+      <!-- Wire -->
+      <line x1="24" y1="62" x2="88" y2="62" stroke="#E8A020" stroke-width="1.6"/>
+      <!-- Bulb right -->
+      <circle cx="93" cy="62" r="5" stroke="#E8A020" stroke-width="1.6" fill="none"/>
+    </svg>
+  </template>
+</body>
+</html>
